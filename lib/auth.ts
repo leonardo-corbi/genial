@@ -25,6 +25,7 @@ export const auth = betterAuth({
         type: "string",
         required: true,
         input: true,
+        defaultValue: "Conservador",
       },
     },
   },

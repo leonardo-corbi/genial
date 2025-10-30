@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../lib/generated/prisma"
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
@@ -16,21 +16,21 @@ datasource db {
 }
 
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
-  role          String?
-  banned        Boolean?  @default(false)
-  banReason     String?
-  banExpires    DateTime?
-  perfilInvestidor PerfilInvestidor 
-  sessions      Session[]
-  accounts      Account[]
-  ativos        Ativo[]
+  id               String           @id
+  name             String
+  email            String
+  emailVerified    Boolean          @default(false)
+  image            String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @default(now()) @updatedAt
+  role             String?
+  banned           Boolean?         @default(false)
+  banReason        String?
+  banExpires       DateTime?
+  perfilInvestidor PerfilInvestidor @default(Conservador)
+  sessions         Session[]
+  accounts         Account[]
+  ativos           Ativo[]
 
   @@unique([email])
   @@map("user")
@@ -83,14 +83,14 @@ model Verification {
 }
 
 model Ativo {
-  id             String   @id @default(uuid())
+  id             String     @id @default(uuid())
   nome           String
   risco          AtivoRisco
-  valorInvestido Decimal  @db.Decimal(10, 2)
+  valorInvestido Decimal    @db.Decimal(10, 2)
   userId         String
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
 
   @@map("ativo")
 }
